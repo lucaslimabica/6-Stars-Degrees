@@ -1,5 +1,6 @@
 import csv
 import sys
+from typing import List, Tuple
 
 from util import Node, StackFrontier, QueueFrontier
 
@@ -84,7 +85,7 @@ def main():
             print(f"{i + 1}: {person1} and {person2} starred in {movie}")
 
 
-def shortest_path(source, target):
+def shortest_path(source: str, target: str) -> List[Tuple[int, int]]:
     """
     Returns the shortest list of (movie_id, person_id) pairs
     that connect the source to the target.
