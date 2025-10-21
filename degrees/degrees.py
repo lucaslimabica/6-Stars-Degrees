@@ -1,6 +1,7 @@
 import csv
 import sys
 from typing import List, Tuple
+import time
 
 from util import Node, StackFrontier, QueueFrontier
 
@@ -106,8 +107,13 @@ def shortest_path(source: str, target: str) -> List[Tuple[int, int]]:
 
     If no possible path, returns None.
     """
+    
+    t0 = time.perf_counter()
+    
     # Caso sejam o mesmo, rertorna array vazio pro check50
     if source == target:
+        t1 = time.perf_counter()
+        print(f"Atores Expandidos: 0 \nParcerias Verificadas: 0 \nTempo em segundos {t1 - t0:.6f}")
         return []
 
     # Set de início, com o primeiro node e set de nodes explorados
@@ -115,19 +121,25 @@ def shortest_path(source: str, target: str) -> List[Tuple[int, int]]:
     frontier = QueueFrontier()
     frontier.add(start)
     explored = set()
+    nodes_explorados = 0
+    vizinhancas_exploradas = 0
     
     while True:
         # Check da fronteira vazia (na main() dará retorno de "no solution")
         if frontier.empty():
+            t1 = time.perf_counter()
+            print(f"Atores Expandidos: {nodes_explorados} \nParcerias Verificadas: {vizinhancas_exploradas} \nTempo em segundos {t1 - t0:.6f}")
             return None
         
         # Começando a buscar nos vizinhos do node na beira da fronteira
         node = frontier.remove()
         explored.add(node.state)
+        nodes_explorados += 1
         for movie_id, person_id in neighbors_for_person(node.state):
             # Verificando se já não vi a pessoa num node já deletado ou a pessoa num outro node atual na fronteira (if igual, mas ao contrário, do Maze.py)
             if person_id in explored or frontier.contains_state(person_id):
                 continue  # ignoro esse, sem criar um child pra ele nem nada
+            vizinhancas_exploradas += 1
             
             child = Node(state=person_id, parent=node, action=movie_id)
             
@@ -140,6 +152,8 @@ def shortest_path(source: str, target: str) -> List[Tuple[int, int]]:
                     path.append((current.action, current.state))
                     current = current.parent  # filho vira o pai, rewind no tempo
                 path.reverse()
+                t1 = time.perf_counter()
+                print(f"Atores Expandidos: {nodes_explorados} \nParcerias Verificadas: {vizinhancas_exploradas} \nTempo em segundos {t1 - t0:.6f}")
                 return path  # Vai sair da function no instante q achar o state target num vizinho
             
             # Basicamente inverti a ordem do check de solution pois comecei o código do pressuposto que o state inicial nunca é o resultado
