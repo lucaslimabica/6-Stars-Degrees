@@ -124,12 +124,12 @@ def shortest_path(source: str, target: str) -> List[Tuple[int, int]]:
             if child.state == target:
                 path = []
                 current = child
-                while current.parent is not None: # basicamente o mesmo do maze
+                while current.parent is not None:  # basicamente o mesmo do maze
                     # lista de tuplas que será o retorno final
                     path.append((current.action, current.state))
-                    current = current.parent # filho vira o pai, rewind no tempo
+                    current = current.parent  # filho vira o pai, rewind no tempo
                 path.reverse()
-                return path # Vai sair da function no instante q achar o state target num vizinho
+                return path  # Vai sair da function no instante q achar o state target num vizinho
             
             # Basicamente inverti a ordem do check de solution pois comecei o código do pressuposto que o state inicial nunca é o resultado
             else:
