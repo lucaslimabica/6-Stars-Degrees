@@ -90,8 +90,19 @@ def shortest_path(source: str, target: str) -> List[Tuple[int, int]]:
     Returns the shortest list of (movie_id, person_id) pairs
     that connect the source to the target.
     
-    source: id da pessoa inicial
-    target: id da pessoa destino 
+    Args:
+        source (str): The unique ID of the starting person
+        target (str): The unique ID of the target person
+
+    Returns:
+        List[Tuple[str, str]]: 
+            A list of (movie_id, person_id) pairs representing the shortest
+            path from `source` to `target`. If no connection exists, returns None
+            If `source` equals `target`, returns an empty array
+
+    Example:
+        >>> shortest_path("158", "102")
+        [("112384", "102")]  # Tom Hanks → Kevin Bacon (Apollo 13)
 
     If no possible path, returns None.
     """
