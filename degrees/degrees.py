@@ -89,12 +89,35 @@ def shortest_path(source: str, target: str) -> List[Tuple[int, int]]:
     """
     Returns the shortest list of (movie_id, person_id) pairs
     that connect the source to the target.
+    
+    source: id da pessoa inicial
+    target: id da pessoa destino 
 
     If no possible path, returns None.
     """
 
-    # TODO
-    raise NotImplementedError
+    # Set de início, com o primeiro node e set de nodes explorados
+    start = Node(state=source, parent=None, action=None)
+    frontier = QueueFrontier()
+    frontier.add(start)
+    explored = set()
+    
+    while True:
+        # Check da fronteira vazia (na main() dará retorno de "no solution")
+        if frontier.empty():
+            return None
+        
+        # Começando a buscar nos vizinhos do node na beira da fronteira
+        node = frontier.remove()
+        explored.add(node.state)
+        for movie_id, person_id in neighbors_for_person(node.state):
+            # Verificando se já não vi a pessoa num node já deletado ou a pessoa num outro node atual na fronteira (if igual, mas ao contrário, do Maze.py)
+            if person_id in explored or frontier.contains_state(person_id):
+                continue # ignoro esse, sem criar um child pra ele nem nada
+            
+            child = Node(state=person_id, parent=node, action=movie_id)
+            
+
 
 
 def person_id_for_name(name):
