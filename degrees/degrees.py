@@ -117,6 +117,21 @@ def shortest_path(source: str, target: str) -> List[Tuple[int, int]]:
             
             child = Node(state=person_id, parent=node, action=movie_id)
             
+            # Verificando se o node vizinho então vai ser o target 
+            if child.state == target:
+                path = []
+                current = child
+                while current.parent is not None: # basicamente o mesmo do maze
+                    path.append((current.action, current.state)) # lista de tuplas que será o retorno final
+                    current = current.parent # filho vira o pai, rewind no tempo
+                path.reverse()
+                return path # Vai sair da function no instante q achar o state target num vizinho
+            
+            # Basicamente inverti a ordem do check de solution pois comecei o código do pressuposto que o state inicial nunca é o resultado
+            else:
+                frontier.add(child)
+            
+            
 
 
 
