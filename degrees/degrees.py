@@ -95,6 +95,9 @@ def shortest_path(source: str, target: str) -> List[Tuple[int, int]]:
 
     If no possible path, returns None.
     """
+    # Caso sejam o mesmo, rertorna array vazio pro check50
+    if source == target:
+        return []
 
     # Set de início, com o primeiro node e set de nodes explorados
     start = Node(state=source, parent=None, action=None)
