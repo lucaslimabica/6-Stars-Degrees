@@ -91,6 +91,8 @@ def shortest_path(source: str, target: str) -> List[Tuple[int, int]]:
     Returns the shortest list of (movie_id, person_id) pairs
     that connect the source to the target.
     
+    And print the metrics about how many nodes, paths checkeds and how much time it had spent
+    
     Args:
         source (str): The unique ID of the starting person
         target (str): The unique ID of the target person
