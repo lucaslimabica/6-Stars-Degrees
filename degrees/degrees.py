@@ -113,7 +113,7 @@ def shortest_path(source: str, target: str) -> List[Tuple[int, int]]:
         for movie_id, person_id in neighbors_for_person(node.state):
             # Verificando se já não vi a pessoa num node já deletado ou a pessoa num outro node atual na fronteira (if igual, mas ao contrário, do Maze.py)
             if person_id in explored or frontier.contains_state(person_id):
-                continue # ignoro esse, sem criar um child pra ele nem nada
+                continue  # ignoro esse, sem criar um child pra ele nem nada
             
             child = Node(state=person_id, parent=node, action=movie_id)
             
@@ -122,7 +122,8 @@ def shortest_path(source: str, target: str) -> List[Tuple[int, int]]:
                 path = []
                 current = child
                 while current.parent is not None: # basicamente o mesmo do maze
-                    path.append((current.action, current.state)) # lista de tuplas que será o retorno final
+                    # lista de tuplas que será o retorno final
+                    path.append((current.action, current.state))
                     current = current.parent # filho vira o pai, rewind no tempo
                 path.reverse()
                 return path # Vai sair da function no instante q achar o state target num vizinho
@@ -130,9 +131,6 @@ def shortest_path(source: str, target: str) -> List[Tuple[int, int]]:
             # Basicamente inverti a ordem do check de solution pois comecei o código do pressuposto que o state inicial nunca é o resultado
             else:
                 frontier.add(child)
-            
-            
-
 
 
 def person_id_for_name(name):
